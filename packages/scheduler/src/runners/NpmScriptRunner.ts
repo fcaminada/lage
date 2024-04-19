@@ -105,11 +105,16 @@ export class NpmScriptRunner implements TargetRunner {
     /**
      * Actually spawn the npm client to run the task
      */
+    let npmCommand = npmCmd;
     const npmRunArgs = this.getNpmArgs(task, taskArgs);
     const npmRunNodeOptions = [nodeOptions, target.options?.nodeOptions].filter((str) => str).join(" ");
 
+    if (process.platform == "win32") {
+      npmCommand = '"' + npmCommand + '"';
+    }
+
     await new Promise<void>((resolve, reject) => {
-      childProcess = spawn(npmCmd, npmRunArgs, {
+      childProcess = spawn(npmCommand, npmRunArgs, {
         cwd: target.cwd,
         stdio: ["inherit", "pipe", "pipe"],
         env: {
@@ -120,6 +125,7 @@ export class NpmScriptRunner implements TargetRunner {
           LAGE_TASK: target.task,
           LAGE_WEIGHT: String(weight),
         },
+        shell: true,
       });
 
       let exitHandled = false;

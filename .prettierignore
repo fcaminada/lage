@@ -1,3 +1,6 @@
+# Self-ignore
+.prettierignore
+
 # Generated or imported files
 change/*.json
 CHANGELOG.*
@@ -5,8 +8,10 @@ LICENSE
 SECURITY.md
 *.snap
 yarn.lock
-# this is a test fixture
+
+# These are test fixtures
 yarn.js
+fakeNpm.cmd
 
 # These lines from .gitignore can be removed after prettier 3 update
 node_modules

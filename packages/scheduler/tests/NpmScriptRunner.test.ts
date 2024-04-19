@@ -17,7 +17,7 @@ function getChildProcessKey(packageName: string, task: string) {
 jest.mock("child_process", () => {
   const originalModule = jest.requireActual("child_process");
 
-  // Mock the default export and named export 'foo'
+  // Mocks the export named 'spawn'.
   return {
     __esModule: true,
     ...originalModule,
@@ -45,7 +45,7 @@ function createTarget(packageName: string): Target {
 }
 
 describe("NpmScriptRunner", () => {
-  const npmCmd = path.join(__dirname, "fixtures", "fakeNpm" + (os.platform() === "win32" ? ".cmd" : ""));
+  const npmCmd = path.join(__dirname, "fixtures", "fake npm", "fakeNpm" + (os.platform() === "win32" ? ".cmd" : ""));
 
   it("can run a npm script to completion", async () => {
     const abortController = new AbortController();
